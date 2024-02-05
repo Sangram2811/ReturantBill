@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, Button, Text, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
+import { View, Button, Text, TouchableOpacity, StyleSheet, Pressable, StatusBar } from 'react-native';
 import { TextInput,Avatar } from 'react-native-paper';
 import SignInWithGoogleButton from '../Components/google/signinbtn';
 
-import {auth,auth2} from "../../Configs/firebase"
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from '@react-native-firebase/auth';
 
-import { RecaptchaVerifier, ConfirmationResult, signInWithEmailAndPassword } from 'firebase/auth';
 const LoginPage = () => {
     const [cap,setcap]=useState(null)
 
@@ -21,25 +21,20 @@ const LoginPage = () => {
   const [activeTab, setActiveTab] = useState('email');
   const [otp,setotp]=useState()
 const handleotpsubmit=async()=>{
-    await ConfirmationResult.confirm(otp)
-    .then((res)=>{
-        console.log(res)
-    })
+   cap.confirm(phone.otp)
+   .then((res)=>{
+    console.log(res)
+   })
 }
   const handleLogin = async() => {
     if (activeTab === 'email') {
       // Handle email login
-      await signInWithEmailAndPassword(auth,email.email,email.password)
-      .then((res)=>{
-        console.log(res)
-      })
+   auth()
     } else {
       // Handle phone login
-       await auth().signInWithPhoneNumber(phone.phone)
-       .then((res)=>{
-        console.log(res)
-       })
-   
+       const cp=await auth().signInWithPhoneNumber(phone.phone);
+      
+   setcap(cp)
 
       
         
@@ -50,6 +45,13 @@ const handleotpsubmit=async()=>{
 
   return (
     <View style={styles.container}>
+    <StatusBar 
+    backgroundColor={'white'}
+    barStyle='dark-content'
+
+
+    />
+    
         <View style={{height:100,width:'100%',display:'flex',alignContent:'center',alignItems:'center'}}>
             <Avatar.Image
             size={80}
