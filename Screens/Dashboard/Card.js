@@ -1,52 +1,46 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet,Pressable } from 'react-native';
 
-const Card = () => {
+const Card = (props) => {
     return (
-        <View style={styles.container}>
-            <View style={styles.card}>
-                <View  style={{
-                    marginTop:'10%',
-                    
-
-                }}>
-                <Image style={styles.image} source={{ uri: 'https://via.placeholder.com/170x105' }} />
-               
-                </View>
-                <View style={{
-                    height:'10%',
-                    width:'100%',
-                    paddingStart:"10%",
-
-                    
-
-                }}>
-                    <Text style={styles.title} >PUB 97</Text>
-                </View>
-                <View style={{
-                    height:'10%',
-                    width:'100%',
-                    paddingStart:"10%",
-
-                    
-
-                }}>
-                    <Text style={styles.location} >New Town,Kolkata</Text>
-                </View>
-<View style={{
-    height:'10%',
-    width:'100%',
-    marginTop:"20%",
-
-
-}}>
-
-</View>
-
-
-            </View>
-            
+        <Pressable
+        key={props.id}
+                
+        onPress={() => {
+          navigation.navigate('ResturantScreen', {
+            resturantID: props.id,
+            resturantName: props.name,
+          });
+        }}
+        style={{padding: 10, width: 200}}>
+        <View
+          style={{
+            height: '100%',
+            width: '100%',
+            backgroundColor: '#ffffff',
+             borderRadius: 12,
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            padding: '10%',
+          }}>
+          <View
+            style={{
+              height: '50%',
+              width: '100%',
+                borderRadius: 12,
+            }}>
+            {/* Event Image */}
+            <Image
+              source={{uri:props.image}}
+              style={{
+                height: '100%',
+                width: '100%',
+                borderRadius: 12,
+              }}
+            />
+          </View>
         </View>
+      </Pressable>
     );
 };
 

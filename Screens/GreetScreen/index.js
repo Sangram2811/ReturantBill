@@ -7,23 +7,131 @@ import {
   Pressable,
   Alert,
   Image,
+  Button,
 } from 'react-native';
 // import { Image } from "expo-image";";
 import {LinearGradient} from 'expo-linear-gradient';
 import {FontFamily, Padding, Border, FontSize, Color} from './GLobalStyles';
 import logo from '../../Assets/logo.png';
 import image2 from '../../Assets/image2.png';
-const GreetScreen = ({navigation}) => {
-  const handleSkip = () => {
-    Alert.alert('hii');
+import { Auth0Provider,useAuth0 } from 'react-native-auth0';
+
+const LoginButton = () => {
+  const {authorize,user} = useAuth0();
+  const loggedIn = user !== undefined && user !== null;
+console.log(user)
+
+  const onPress = async () => {
+      try {
+          await authorize();
+      
+      } catch (e) {
+          console.log(e);
+      }
   };
-  const handlecreateAc = () => {
-    navigation.navigate('SignUp');
-  };
-  const handlelogin = () => {};
 
   return (
-    <View style={{width: '100%', height: '100%', backgroundColor: '#f8fbff'}}>
+    <Pressable
+    id="btnlogin"
+    onPress={onPress}
+    style={{
+     zIndex: 10,
+      elevation: 10,
+      width: '80%',
+      backgroundColor: 'red',
+      height: '55%',
+     borderRadius: 15,
+      display: 'flex',
+      alignContent: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+    <Text
+      style={{
+        color: '#f8fbff',
+        fontSize: 20,
+        fontStyle: 'normal',
+        fontWeight: 400,
+      }}>
+      Create a New Account
+    </Text>
+  </Pressable>
+  )
+}
+
+const LoginButton2 = () => {
+  const {authorize} = useAuth0();
+
+  const onPress = async () => {
+      try {
+          await authorize();
+      } catch (e) {
+          console.log(e);
+      }
+  };
+
+  return (  <Pressable
+    onPress={onPress}>
+    <Text
+      style={{
+        color: 'red',
+        fontSize: 20,
+      }}>
+      Login
+    </Text>
+  </Pressable>
+  )
+}
+
+
+
+const AUth=()=>{
+  const {authorize, clearSession, user, error, isLoading} = useAuth0();
+
+  const onLogin = async () => {
+    try {
+      await authorize();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const onLogout = async () => {
+    try {
+      await clearSession();
+    } catch (e) {
+      console.log('Log out cancelled');
+    }
+  };
+
+  if (isLoading) {
+    return <View style={styles.container}><Text>Loading</Text></View>;
+  }
+
+  const loggedIn = user !== undefined && user !== null;
+  return (
+    <View style={styles.container}>
+      {loggedIn && <Text>You are logged in as {user.name}</Text>}
+      {!loggedIn && <Text>You are not logged in</Text>}
+      {error && <Text>{error.message}</Text>}
+
+      <Button
+        onPress={loggedIn ? onLogout : onLogin}
+        title={loggedIn ? 'Log Out' : 'Log In'}
+      />
+    </View>
+  );
+
+}
+
+const GreetScreen = ({navigation}) => {
+
+  
+  return (
+    <Auth0Provider   domain={"payapp.us.auth0.com"} clientId={"TD5MZXgT44NmovoIcMrZMO49dPvsvAUN"}  >
+          <View style={{width: '100%', height: '100%', backgroundColor: '#f8fbff'}}>    
+            <AUth/>
+
       <View
         style={{
           height: '10%',
@@ -45,7 +153,7 @@ const GreetScreen = ({navigation}) => {
               height: '100%',
               width: '15%',
               padding: '1%',
-              // borderRadius: 10,
+             borderRadius: 10,
               position: 'relative',
               margin: '10%',
             }}
@@ -80,30 +188,9 @@ const GreetScreen = ({navigation}) => {
           alignContent: 'center',
           alignItems: 'center',
         }}>
-        <Pressable
-          onPress={handlecreateAc}
-          style={{
-            // zIndex: '10',
-            // elevation: '10%',
-            width: '80%',
-            backgroundColor: 'red',
-            height: '55%',
-            // borderRadius: '15%',
-            display: 'flex',
-            alignContent: 'center',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              color: '#f8fbff',
-              fontSize: 20,
-              fontStyle: 'normal',
-              fontWeight: 400,
-            }}>
-            Create a New Account
-          </Text>
-        </Pressable>
+     
+     <LoginButton/>
+
       </View>
       <View
         style={{
@@ -113,20 +200,10 @@ const GreetScreen = ({navigation}) => {
           alignContent: 'center',
           alignItems: 'center',
         }}>
-        <Pressable
-          onPress={() => {
-            navigation.navigate('SignIn');
-          }}>
-          <Text
-            style={{
-              color: 'red',
-              fontSize: 20,
-            }}>
-            Login
-          </Text>
-        </Pressable>
+          <LoginButton2/>
       </View>
     </View>
+    </Auth0Provider>
   );
 };
 

@@ -4,8 +4,9 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const RestaurantRating = ({ rating }) => {
+const rate=Number(rating) 
   const renderStars = () => {
-    const fullStars = Math.floor(rating);
+    const fullStars = Math.floor(rate);
     const halfStar = rating % 1 !== 0;
 
     const starsArray = [];
@@ -32,7 +33,7 @@ const RestaurantRating = ({ rating }) => {
   return (
     <View style={styles.container}>
       {renderStars()}
-      <Text style={styles.ratingText}>{rating.toFixed(1)}</Text>
+      <Text style={styles.ratingText}>{rate.toFixed(1)}</Text>
     </View>
   );
 };

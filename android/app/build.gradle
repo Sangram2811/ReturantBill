@@ -83,6 +83,8 @@ android {
         versionName "1.0"
         missingDimensionStrategy 'react-native-camera', 'general' 
           multiDexEnabled true
+                  manifestPlaceholders = [auth0Domain: "payapp.us.auth0.com", auth0Scheme: "${applicationId}.auth0"]
+
     }
     signingConfigs {
         debug {
@@ -112,6 +114,7 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:flipper-integration")
+    implementation platform('com.google.firebase:firebase-bom:32.7.1')
  implementation 'com.android.support:multidex:1.0.3'
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
@@ -121,3 +124,4 @@ dependencies {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"

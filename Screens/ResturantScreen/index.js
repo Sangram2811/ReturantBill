@@ -5,14 +5,14 @@ import PhoneCall from './PhoneCall';
 import ImageModal from './ImageViewer';
 
 const ResturantScreen = ({route, navigation}) => {
-  //   const {resturantID, resturantName} = route.params;
+   const {resturantID, resturantName,location,resturantDescription,resturantMenu,resturantGallery,resturantNumber,resturantRating,resturantImage   } = route.params;
   const openPdfInExternalViewer = yourPdfUrl => {
     Linking.openURL(yourPdfUrl).catch(error => {
       console.error('Error opening PDF:', error);
     });
   };
 
-  //   if (resturantID == '') {
+  //  if (resturantID == '') {
   //     navigation.goBack();
   //   }
 
@@ -42,7 +42,7 @@ const ResturantScreen = ({route, navigation}) => {
             height: '85%',
             width: '14%',
             marginStart: '2%',
-            //    borderRadius:'20%',
+             borderRadius:20,
             padding: '4%',
             flexShrink: 0,
           }}>
@@ -70,7 +70,7 @@ const ResturantScreen = ({route, navigation}) => {
             alignItems: 'center',
           }}>
           <Text style={{fontSize: 16, color: 'black'}}>
-            {/* {resturantName ? resturantName : 'Loading'} */}
+         {resturantName ? resturantName : 'Loading'}
           </Text>
         </View>
       </View>
@@ -89,21 +89,21 @@ const ResturantScreen = ({route, navigation}) => {
             height: '80%',
             width: '80%',
             backgroundColor: 'gray',
-            // borderRadius:10,
+            borderRadius:10,
           }}>
           <Image
             style={{
               height: '100%',
               width: '100%',
-              // borderRadius:10,
+              borderRadius:10,
             }}
-            source={require('../../Assets/banner.jpeg')}
+            source={{uri:resturantImage ? resturantImage : 'https://placehold.co/600x400/EEE/31343C'}} 
           />
         </View>
       </View>
       <View
         style={{
-          height: '8%',
+          height: '8%', 
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -114,7 +114,7 @@ const ResturantScreen = ({route, navigation}) => {
             color: 'black',
             fontWeight: '700',
           }}>
-          {/* {resturantName ? resturantName : 'Loading'} */}
+          {resturantName ? resturantName : "Loading"}
         </Text>
       </View>
       <View
@@ -128,8 +128,32 @@ const ResturantScreen = ({route, navigation}) => {
           paddingStart: '10%',
           paddingEnd: '20%',
         }}>
-        <RestaurantRating rating={5} />
-        <PhoneCall phoneNumber={'124-141-414'} />
+        <RestaurantRating rating={resturantRating} />
+        <Pressable
+        style={{
+          height:40,
+          width:40,
+          borderRadius:10,
+          padding:1,
+          backgroundColor:'#EFEFF4'
+        }}
+        onPress={()=>{
+          
+          Linking.openURL(location)
+          
+        }}
+        >
+<Image style={{
+  height:'100%',
+  width:'100%',
+
+}}
+
+source={{uri:'https://cdn.iconscout.com/icon/free/png-512/free-google-maps-2981836-2476488.png?f=webp&w=256'}}
+  />
+
+        </Pressable>
+        <PhoneCall phoneNumber={resturantNumber} />
       </View>
       <View
         style={{
@@ -137,11 +161,9 @@ const ResturantScreen = ({route, navigation}) => {
           paddingBottom: '10%',
           paddingHorizontal: '10%',
         }}>
-        <Text>
-          Our simple, classic cheeseburger begins with a 100% pure beef burger
-          seasoned with just a pinch of salt and pepper. The McDonald’s
-          Cheeseburger is topped,
-          <Text
+        <Text>{resturantDescription ? resturantDescription :"Our simple, classic cheeseburger begins with a 100% pure beef burger seasoned with just a pinch of salt and pepper. The McDonald’s Cheeseburger is topped,"
+          
+        }<Text
             onPress={() => {}}
             style={{
               color: 'red',
@@ -162,15 +184,14 @@ const ResturantScreen = ({route, navigation}) => {
               height: '100%',
               width: '50%',
               backgroundColor: 'red',
-              // borderRadius:5,
+              borderRadius:5,
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
             }}>
             <Text
               onPress={() => {
-                const pdf =
-                  'https://www.equidam.com/resources/Equidam-Valuation-Methodology.pdf';
+                const pdf =resturantMenu;
 
                 openPdfInExternalViewer(pdf);
               }}

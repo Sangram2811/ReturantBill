@@ -3,29 +3,13 @@ import {Alert, View, Image} from 'react-native';
 import logo from '../../Assets/logo.png';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const SplashScreen = ({navigation}) => {
-  React.useEffect(() => {
-    {
-      /*const token= AsyncStorage.getItem('refresh-token')
+    setTimeout(()=>{
+      navigation.navigate('login')
 
-  if(!token){
-    navigation.navigate("GreetScreen");
-    }
-    if(token){
-      const response= axios.get('https://resturant.techarman.me/api/auth/',{
-        headers:{
-          authorization:token
-        }
-      })
-      if(response.status===200){
-         AsyncStorage.setItem('email',response.data.user.email)
-      }
-
-
-    }*/
-    }
-    navigation.navigate('Dashboard');
-  }, []);
+    },3000)
+  
   return (
     <View
       style={{
@@ -45,6 +29,9 @@ const SplashScreen = ({navigation}) => {
         source={logo}
       />
     </View>
+      
+
+ 
   );
 };
 

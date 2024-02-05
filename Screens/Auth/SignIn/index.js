@@ -23,7 +23,7 @@ import {apiURL} from '../../../Configs/api';
 import {ActivityIndicator, MD2Colors} from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SignIn = () => {
+const SignIn = ({navigation}) => {
   const [email, setemail] = React.useState('');
   const [password, setpassword] = React.useState('');
   const [cnfPassword, setcnfPassword] = React.useState('');
@@ -32,53 +32,51 @@ const SignIn = () => {
   const [Loading, setLoading] = React.useState(false);
 
   const handleSignUp = () => {
-    // if (!email.includes('@')) {
-    //   Alert.alert('Invalid Email ID', 'Please enter a valid email id.', [
-    //     {text: 'OK', onPress: () => console.log('Email Not Valid')},
-    //   ]);
-    //   return;
-    // }
-    // if (password < 8) {
-    //   Alert.alert(
-    //     'Password Too Short',
-    //     'Your password should be atleast 8 characters long.',
-    //     [{text: 'OK'}],
-    //   );
-    //   return;
-    // }
+    if (!email.includes('@')) {
+       Alert.alert('Invalid Email ID', 'Please enter a valid email id.', [
+         {text: 'OK', onPress: () => console.log('Email Not Valid')},
+       ]);
+       return;
+     }
+ if (password < 8) {
+    Alert.alert(
+        'Password Too Short',
+         'Your password should be atleast 8 characters long.',
+         [{text: 'OK'}],
+       );
+    return;
+    }
 
-    // emailSignUp();
+   emailSignUp();
 
-    console.log('handleEmailSignUp');
   };
 
-  // const emailSignUp = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const response = await axios
-  //       .post('https://resturant.techarman.me/api/auth/signin', {
-  //         email,
-  //         password,
-  //       })
-  //       .then(async res => {
-  //         console.log(res.data);
-  //         if (res.data.status == 'Success') {
-  //           console.log('Success');
-  //           await AsyncStorage.setItem('refresh-token', res.data.token);
-  //           setLoading(false);
-  //         }
+  const emailSignUp = async () => {
+  setLoading(true);
+    try {
+     const response = await axios.post('https://resturant.techarman.me/api/auth/signin', {
+           email,
+           password,
+         })
+         .then(async res => {
+           console.log(res.data);
+           if (res.data.status == 'Success') {
+             console.log('Success');
+             await AsyncStorage.setItem('refresh-token', res.data.token);
+             setLoading(false);
+             navigation.navigate('Dashboard')
+           }
 
-  //         setLoading(false);
-  //         Alert.alert(res.data.message);
-  //       });
-  //   } catch (err) {
-  //     console.log('Error');
-  //     console.log(err);
-  //     setLoading(false);
-  //     Alert.alert('Email Already Exists');
-  //     return err;
-  //   }
-  // };
+           setLoading(false);
+         });
+   } catch (err) {
+      console.log('Error');
+       console.log(err);
+       setLoading(false);
+       Alert.alert('Server Error');
+       return err;
+     }
+   };
 
   return (
     <View
@@ -146,14 +144,14 @@ const SignIn = () => {
           underlineColorAndroid="transparent"
           activeUnderlineColor="transparent"
           style={{
-            borderTopEndRadius: '15%',
-            borderBottomEndRadius: '15%',
-            borderTopStartRadius: '15%',
-            borderBottomStartRadius: '15%',
-            borderWidth: '1%',
-            borderColor: '#ced4da',
-            paddingStart: '5%',
-            backgroundColor: '#FCFCFC',
+             borderTopEndRadius: 15,
+           borderBottomEndRadius:15,
+            borderTopStartRadius: 15,
+          borderBottomStartRadius: 15,
+            borderWidth: 1,
+           borderColor: '#ced4da',
+           paddingStart: '5%',
+           backgroundColor: '#FCFCFC',
           }}
           keyboardType="email-address"
         />
@@ -173,24 +171,19 @@ const SignIn = () => {
           activeOutlineColor="transparent"
           activeUnderlineColor="transparent"
           style={{
-            borderTopEndRadius: '15%',
-            borderBottomEndRadius: '15%',
-            borderTopStartRadius: '15%',
-            borderBottomStartRadius: '15%',
-            borderWidth: '1%',
-            borderColor: '#ced4da',
-            paddingStart: '5%',
-            backgroundColor: '#FCFCFC',
+            borderTopEndRadius: 15,
+           borderBottomEndRadius:15,
+            borderTopStartRadius: 15,
+          borderBottomStartRadius: 15,
+            borderWidth: 1,
+           borderColor: '#ced4da',
+           paddingStart: '5%',
+           backgroundColor: '#FCFCFC',
             marginTop: '5%',
           }}
-          right={
-            <TextInput.Icon
-              icon={'eye'}
-              onPress={() => {
-                sethidepass(!hidepass);
-              }}
-            />
-          }
+         
+            
+          
         />
 
         <View
@@ -208,7 +201,7 @@ const SignIn = () => {
               width: '80%',
               marginTop: '10%',
               backgroundColor: 'red',
-              borderRadius: '10%',
+              borderRadius:10,
               display: 'flex',
               alignContent: 'center',
               alignItems: 'center',

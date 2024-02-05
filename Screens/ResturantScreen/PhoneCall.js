@@ -2,12 +2,11 @@
 
 import React from 'react';
 import {View, Text, TouchableOpacity, Linking, StyleSheet} from 'react-native';
+import Icon from "react-native-vector-icons/FontAwesome"
 //import { FontAwesome } from '@expo/vector-icons'; // Import FontAwesome from '@expo/vector-icons' for the phone icon
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const PhoneCall = ({phoneNumber}) => {
   const handlePhoneCall = () => {
-    const phoneNumberWithoutSpaces = phoneNumber.replace(/\s/g, ''); // Remove spaces from the phone number
-    const phoneUrl = `tel:${phoneNumberWithoutSpaces}`;
+    const phoneUrl = `tel:${phoneNumber}`;
 
     // Open the phone app with the specified phone number
     Linking.openURL(phoneUrl).catch(error =>
@@ -18,8 +17,7 @@ const PhoneCall = ({phoneNumber}) => {
   return (
     <TouchableOpacity onPress={handlePhoneCall}>
       <View style={styles.container}>
-        <FontAwesome name="phone" size={20} color="#007AFF" />
-        <Text style={styles.text}>Call</Text>
+      <Icon name="phone" color="#1a303d" size={20}/>
       </View>
     </TouchableOpacity>
   );
@@ -27,10 +25,10 @@ const PhoneCall = ({phoneNumber}) => {
 
 const styles = StyleSheet.create({
   container: {
+    width:40,
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: '#EFEFF4', // Example background color
     borderRadius: 8,
   },
   text: {

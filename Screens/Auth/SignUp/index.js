@@ -142,11 +142,11 @@ const SignUp = ({navigation}) => {
           underlineColorAndroid="transparent"
           activeUnderlineColor="transparent"
           style={{
-            borderTopEndRadius: '15%',
-            borderBottomEndRadius: '15%',
-            borderTopStartRadius: '15%',
-            borderBottomStartRadius: '15%',
-            borderWidth: '1%',
+            borderTopEndRadius: 15,
+            borderBottomEndRadius: 15,
+            borderTopStartRadius: 15,
+            borderBottomStartRadius: 15,
+            borderWidth: 1,
             borderColor: '#ced4da',
             paddingStart: '5%',
             backgroundColor: '#FCFCFC',
@@ -168,12 +168,13 @@ const SignUp = ({navigation}) => {
           underlineColor="transparent"
           activeOutlineColor="transparent"
           activeUnderlineColor="transparent"
-          style={{
-            borderTopEndRadius: '15%',
-            borderBottomEndRadius: '15%',
-            borderTopStartRadius: '15%',
-            borderBottomStartRadius: '15%',
-            borderWidth: '1%',
+          style={{borderTopEndRadius: 15,
+            borderBottomEndRadius: 15,
+            borderTopStartRadius: 15,
+            borderBottomStartRadius: 15,
+            borderWidth: 1,
+
+            
             borderColor: '#ced4da',
             paddingStart: '5%',
             backgroundColor: '#FCFCFC',
@@ -206,11 +207,11 @@ const SignUp = ({navigation}) => {
           underlineColor="transparent"
           activeUnderlineColor="transparent"
           style={{
-            borderTopEndRadius: '15%',
-            borderBottomEndRadius: '15%',
-            borderTopStartRadius: '15%',
-            borderBottomStartRadius: '15%',
-            borderWidth: '1%',
+            borderTopEndRadius: 15,
+            borderBottomEndRadius: 15,
+            borderTopStartRadius: 15,
+            borderBottomStartRadius: 15,
+            borderWidth: 1,
             borderColor: '#ced4da',
             paddingStart: '5%',
             backgroundColor: '#FCFCFC',
@@ -232,7 +233,7 @@ const SignUp = ({navigation}) => {
               width: '80%',
               marginTop: '10%',
               backgroundColor: 'red',
-              borderRadius: '10%',
+              borderRadius: 10,
               display: 'flex',
               alignContent: 'center',
               alignItems: 'center',

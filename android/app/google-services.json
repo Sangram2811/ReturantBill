@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "393961825543",
+    "firebase_url": "https://prive-pay-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "prive-pay",
+    "storage_bucket": "prive-pay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393961825543:android:27ff093b4ffcf0dd5591a2",
+        "android_client_info": {
+          "package_name": "com.resturantbill"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393961825543-ho36ap5br8s7i4b7psf79al2k6gq2lqp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOgQ6Sdc8rv03KLZJc4-1DVhDhrqKTcYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393961825543-ho36ap5br8s7i4b7psf79al2k6gq2lqp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
