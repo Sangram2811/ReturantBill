@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import { View, Button, Text, TouchableOpacity, StyleSheet, Pressable, StatusBar } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Button, Text, TouchableOpacity, StyleSheet, Pressable, StatusBar, Alert } from 'react-native';
 import { TextInput,Avatar } from 'react-native-paper';
 import SignInWithGoogleButton from '../Components/google/signinbtn';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import auth from '@react-native-firebase/auth';
-
-const LoginPage = () => {
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+const LoginPage = ({navigation}) => {
     const [cap,setcap]=useState(null)
 
   const [email, setEmail] = useState({
@@ -25,18 +25,60 @@ const handleotpsubmit=async()=>{
    .then((res)=>{
     console.log(res)
    })
+  
+}
+function onAauthCHange(user){
+    if(user){
+        console.log(user)
+        navigation.navigate('main',{user:user})
+    }
+}
+
+useEffect(()=>{
+const authChange=auth().onAuthStateChanged(onAauthCHange)
+return authChange
+},[])
+async function onGoogleButtonPress() {
+    GoogleSignin.configure({
+        webClientId:'393961825543-ho36ap5br8s7i4b7psf79al2k6gq2lqp.apps.googleusercontent.com'
+    })
+    // Check if your device supports Google Play
+    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+    // Get the users ID token
+    const { idToken } = await GoogleSignin.signIn();
+  
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+  
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
+  }
+
+const handlesendOTP=async(phone)=>{
+    await auth().signInWithPhoneNumber(phone)
+    .then((res)=>{
+        console.log(res)
+setcap(res)
+    })
+ .catch((res)=>{
+    console.log(res)
+   })
 }
   const handleLogin = async() => {
     if (activeTab === 'email') {
       // Handle email login
-   auth()
+    await auth().signInWithEmailAndPassword(
+        email.email,
+        email.password
+    ).then((res)=>{
+        console.log(res)
+    })
+    
     } else {
       // Handle phone login
-       const cp=await auth().signInWithPhoneNumber(phone.phone);
-      
-   setcap(cp)
-
-      
+  
+await handlesendOTP(phone.phone)
+  setotpscreen(true)    
         
     
 
@@ -186,7 +228,18 @@ underlineColor='transparent'
         </TouchableOpacity>
       </View>
       <View style={styles.googleSignInContainer}>
-        <SignInWithGoogleButton />
+        <SignInWithGoogleButton 
+        press={
+            async()=>{
+                await onGoogleButtonPress()
+                .then((res)=>{
+                    console.log(res)
+                })
+
+
+            }
+        }
+        />
       </View>
     </View>
   );

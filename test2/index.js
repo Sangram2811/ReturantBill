@@ -4,6 +4,7 @@ import { Main } from '../App';
 import Carousel from "react-native-snap-carousel";
 import HotelCard from './Card';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // Define your data (dummy data for demonstration)
 const restaurantData = [
   { name: 'Restaurant 1', location: 'Location 1',Offer:"20%", rating: 4.5, image: require('../test/assets/home/bookings/booking-1.png') },
@@ -132,6 +133,7 @@ const [resturants,setResturants]=useState([])
 const [cafes,setcafes]=useState([])
 const [events,setevents]=useState([])
       useEffect(()=>{
+        
     const fetchmerchantdata=async()=>
     {const response=await axios.get('https://resturant.techarman.me/api/merchants');
     if(response.data.status===true){

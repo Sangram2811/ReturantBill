@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import auth from "@react-native-firebase/auth"
+const AccountScreen = ({navigation}) => {
+  const [user,setuser]=useState({})
+  const logout=()=>{
+    
+  }
+  useEffect(()=>{
+    const data=auth().currentUser
+    setuser(data)
+    console.log(user)
 
-const AccountScreen = () => {
+  },[])
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Image
-          source={require('../Assets/user.png')}
+          source={user.photoURL ? {uri:user.photoURL} : require('../Assets/user.png')}
           style={styles.profileImage}
         />
-        <Text style={styles.username}>John Doe</Text>
-        <Text style={styles.email}>john.doe@example.com</Text>
+        <Text style={styles.username}>{user.displayName ? user.displayName : 'John Doe'}</Text>
+        <Text style={styles.email}>{user.email ? user.email : 'example@email.com'}</Text>
       </View>
       <View style={styles.options}>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={()=>{
+navigation.navigate('editprofile',{data:user})
+        }} >
           <Text style={styles.optionText}>Edit Profile</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.option}>

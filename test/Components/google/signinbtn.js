@@ -1,10 +1,10 @@
 import React from 'react';
-import { TouchableOpacity, View, Text, StyleSheet,Image } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet,Image, Pressable } from 'react-native';
 import GoogleIcon from '../../assets/google';
 
-const SignInWithGoogleButton = () => {
+const SignInWithGoogleButton = (props) => {
   return (
-    <TouchableOpacity style={styles.buttonContainer}>
+    <Pressable onPress={props.press} style={styles.buttonContainer}>
       <View style={styles.iconContainer}>
         <Image style={{
             height:40,
@@ -14,7 +14,7 @@ const SignInWithGoogleButton = () => {
       <View style={styles.textContainer}>
         <Text style={styles.buttonText}>Continue with Google</Text>
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

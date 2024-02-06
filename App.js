@@ -29,6 +29,7 @@ import QRScanner from './test/screens/QRScanner';
 import AccountScreen from './test2/AccountScreen';
 import PaymentsPage from './test2/PaymentsSave';
 import LoginPage from './test/screens/LoginPage';
+import EditProfile from './test2/EditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,7 +68,7 @@ const App = () => {
       <Stack.Screen name="Home" component={Test2} options={{headerShown:false}} />
         <Stack.Screen name="main" component={Main} options={{ headerShown: false }}  />
         <Stack.Screen name="booking" component={Booking} options={{ headerShown: false }}  />
-
+<Stack.Screen name="editprofile" component={EditProfile} options={{headerTitle:'Edit Profile',headerTitleAlign:'center'}}  />
       </Stack.Navigator>
     </NavigationContainer>
       
